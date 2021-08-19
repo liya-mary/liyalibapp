@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar navbar-bright navbar-fixed-top" role="banner">
+        <div class="container">
+          <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">Home</a>
+          </div>
+          <nav class="collapse navbar-collapse" role="navigation">
+            <ul class="nav navbar-nav">
+              <% if(role=="admin"){%>
+                <% for(i=0;i<nav.length-2;i++){ %>
+                  <li>
+                    <a href="<%=nav[i].link %>"><%=nav[i].name%></a>
+                  </li>
+                <%}%>
+                <li>
+                  <button id="logoutbtn" style="text-align: right;"><a href="/logout">logout</a> </button> 
+                </li>
+                
+              <%}else{%>
+                <% for(i=4;i<nav.length;i++){ %>
+                  <li>
+                    <a href="<%=nav[i].link %>"><%=nav[i].name%></a>
+                  </li>
+                <%}%>
+              <%}%>
+            </ul>
+        
+          </nav>
+        </div>
+      </header>
+      
+    <h1 id="head"> Sign Up</h1>
+    
+        <div class="container1">
+            <div class="box1">
+                <form action="/addata" method="POST">
+                    <label class="signuplabels" for="Username" id="label1">Username </label> <br>
+                    <input class="signupinputs" name="username" type="text" id="firstname" placeholder="Username"><br>
+                    <label for="name" class="errors" id="nameerror"></label>
+                    <br>
+                    <label class="signuplabels"  for="Email">Email</label> <br>
+                    <input class="signupinputs" id="email"name="email" type="text"  placeholder="Email"><br>
+                    <label for="emailerror" class="errors" id="emailerror"></label>
+                    <br>
+                    <label class="signuplabels"  for="password">Password</label> <br>
+                    <input class="signupinputs"  name="password" id="pwd" type="Password"  placeholder="Password"><br>
+                    <label for="passworderror" class="errors" id="pwderror"></label> 
+                    <br>
+                    <label class="signuplabels"  for="repeat password">Repeat Password</label><br>
+                    <input class="signupinputs" name="repeatpassword" id="pwd2" type="password" placeholder="Repeat Password"><br>
+                    <label for="repeaterror" class="errors" id="pwd2error"></label> 
+                    <br>
+                    <button type="submit" onclick="return validate()" id="signupbtn">Sign Up</button>
+                    
+                </form>
+            </div>
+        </div>
+        <script>
+          let name=document.getElementById("firstname");
+          let nameerror=document.getElementById("nameerror");
+          let email=document.getElementById("email");
+          let emailerror=document.getElementById("emailerror");
+          var pwd=document.getElementById("pwd");
+          let pwderror=document.getElementById("pwderror");
+          var pwd2=document.getElementById("pwd2");
+          let pwd2error=document.getElementById("pwd2error");
+              function validate(){
+                  let regexp=/^([A-Za-z0-9\.\-])+\@([A-Za-z0-9\-])+\.([a-z]{2,3})(.[a-z]{2,3})?$/
+                  let strong=new RegExp("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})");
+                   // let letters=/^[\w]+$/;
+                  //let strong = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+                  //let strong = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+                  //let medium = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+                  
+                  
+        
+                    if(name.value==""){
+                      nameerror.innerHTML="Username cannot be empty";
+                      name.style.border="2px solid red";
+                      
+                      if(name.value.trim()==""){
+                      nameerror.innerHTML="Username cannot be empty";
+                      name.style.border="2px solid red";
+                      return false;
+                    }
+                    }
+                    
+                    
+                    if(email.value==""){
+                      name.style.border="3px solid green";
+                      nameerror.innerHTML="";
+                      emailerror.innerHTML="Email cannot be empty";
+                        if(email.value.trim()==""){
+                          name.style.border="3px solid green";
+                          nameerror.innerHTML="";
+                          emailerror.innerHTML="Email cannot be empty";
+                          email.style.border="2px solid red";
+                          return false;
+                        }
+                    }
+                      if(regexp.test(email.value)==false){
+                        name.style.border="3px solid green";
+                        nameerror.innerHTML="";
+        
+                        emailerror.innerHTML="Invalid Email format";
+                        email.style.border="2px solid red";
+                        return false;
+                    
+                    }
+                  
+                    
+                  
+                    /*if (pwd.value.length == 0) {
+                      email.style.border="3px solid green";
+                      emailerror.innerHTML="";
+        
+                      pwderror.innerHTML = 'Type Password';
+                      pwderror.style.color="red";
+                      pwd.style.border="3px solid red";
+                      return false;
+                    } */
+                    
+                            
+                      if(pwd.value=="") {
+                        email.style.border="3px solid green";
+                        emailerror.innerHTML="";
+                    
+                        pwderror.innerHTML = 'Type Password';
+                        pwd.style.border="2px solid red";
+                          if(pwd.value.trim()=="") {
+                              email.style.border="3px solid green";
+                              emailerror.innerHTML="";
+                      
+                              pwderror.innerHTML = 'Type Password';
+                              pwd.style.border="2px solid red";
+                              return false;
+                            }
+                      } 
+                    if(strong.test(pwd.value)== false) {
+                        email.style.border="3px solid green";
+                        emailerror.innerHTML="";
+                
+                              /* pwderror.innerHTML = '<span style="color:orange">Medium!!! Try including special characters</span>';
+                                pwd.style.border="3px solid orange";
+                                return false;*/
+                        pwderror.innerHTML = 'Password is not strong.<br> Try adding numbers and special characters';
+                        pwd.style.border="2px solid red";  
+                        return false;
+                    } 
+                 
+                 
+                    else if(strong.test(pwd.value)) {
+                      email.style.border="3px solid green";
+                      emailerror.innerHTML="";
+        
+                        pwderror.innerHTML = '<span>Strong!</span>';
+                        pwd.style.border="3px solid green";
+                          if(pwd2.value=="") {
+                            pwd2error.innerHTML = 'Re-enter Password';
+                            pwd2.style.border="2px solid red";
+                            return false;
+                          } 
+                          else if(pwd2.value.trim()=="") {
+                            pwd2error.innerHTML = 'Re-enter Password';
+                            pwd2.style.border="2px solid red";
+                            return false;
+                     
+                          } 
+                    
+                           else if(pwd2.value!=pwd.value) {
+                            pwd2error.innerHTML = 'Passwords did not match';
+                            pwd2.style.border="3px solid red";
+                            return false;
+                           }
+                           else{
+                              pwd2error.innerHTML ="";
+                              pwd2.style.border="2px solid green";
+                              return true;
+                            } 
+                      }  
+                   
+                  }
+           </script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>        
+</body>
+</html>

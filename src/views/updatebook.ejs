@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar navbar-bright navbar-fixed-top" role="banner">
+        <div class="container">
+          <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">Home</a>
+          </div>
+          <nav class="collapse navbar-collapse" role="navigation">
+            <ul class="nav navbar-nav">
+              <% if(role=="admin"){%>
+                <% for(i=0;i<nav.length-2;i++){ %>
+                  <li>
+                    <a href="<%=nav[i].link %>"><%=nav[i].name%></a>
+                  </li>
+                <%}%>
+                <li>
+                  <button id="logoutbtn" style="text-align: right;"><a href="/logout">logout</a> </button> 
+                </li>
+                
+                
+              <%}else{%>
+                <% for(i=4;i<nav.length;i++){ %>
+                  <li>
+                    <a href="<%=nav[i].link %>"><%=nav[i].name%></a>
+                  </li>
+                <%}%>
+               
+              <%}%>
+            </ul>
+     
+          </nav>
+        </div>
+      </header>
+      
+    <h1 id="head"> Edit Book Details</h1>
+      
+        <div class="container1">
+            <div class="box1">
+                <form method="POST" action="/books/:id/update/updatebook" enctype="multipart/form-data">
+                    <input type="hidden" value="<%book._id%>" >
+                    <label class="labels" for="book title" id="label1">Book Title </label> 
+                    <input class="inputs" id="title" name="Title" type="text" value="<%=book.Title%>"  placeholder="Book Title"><br>
+                    <label id="error1" for="error"></label>
+                    <br>
+                    <label class="labels" for="author">Author </label>
+                    <input class="inputs" id="author" name="Author" type="text" value="<%=book.Author%>" placeholder="Author"><br>
+                    <label id="error2" for="error"></label>
+                    <br>
+                    <label class="labels" for="genre">Genre </label>
+                    <input  class="inputs" id="genre" name="Genre" type="text" value="<%=book.Genre%>" placeholder="Genre"><br>
+                    <label id="error3" for="error"></label>
+                    <br>
+                    <label class="labels" for="image">Book Cover </label>
+                    <img src="/public/uploads/<%book._id%>.jpg" alt="" style="width:100px;height:auto">
+                    <input  class="inputs"type="file" name="file" id="cover" required accept="image/*"><br>
+                    <label id="error4" for="error"></label>
+                    <br>
+                    <button type="submit" onclick="return add()" id="btn">Update</button>
+                </form>
+            </div>
+        </div>
+        <script>
+          let title=document.getElementById("title");
+          let author=document.getElementById("author");
+          let genre=document.getElementById("genre");
+          let cover=document.getElementById("cover");
+          let error1=document.getElementById("error1")
+          let error2=document.getElementById("error2")
+          let error3=document.getElementById("error3")
+          let error4=document.getElementById("error4")
+          function add(){
+            if(title.value==""){
+              error1.innerHTML="Username cannot be empty";
+
+              return false;
+            }
+            else if(title.value.trim()==""){
+              error1.innerHTML="Username cannot be empty";
+            
+              return false;
+            }
+            else{
+              error1.innerHTML="";
+            }
+            if(author.value==""){
+              error2.innerHTML="Field cannot be empty";
+        
+              return false;
+            }
+            else if(author.value.trim()==""){
+              error2.innerHTML="Field cannot be empty";
+            
+              return false;
+            }
+            else{
+              error2.innerHTML="";
+            }
+            if(genre==""){
+              error3.innerText="Field cannot be empty";
+              return false;
+            }
+            else if(genre.value.trim()==""){
+              error3.innerHTML="Field cannot be empty";
+            
+              return false;
+            }
+            else{
+              error3.innerHTML="";
+            }
+            if(cover.files.length === 0){
+              error4.innerHTML="Attatchment required";
+               
+                return false;
+            }
+            else{
+              error4.innerHTML="";
+              //alert("Book Added");
+              return true;
+            }
+          }
+        </script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>        
+</body>
+</html>

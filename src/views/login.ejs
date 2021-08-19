@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar navbar-bright navbar-fixed-top" role="banner">
+        <div class="container">
+          <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">Home</a>
+          </div>
+          <nav class="collapse navbar-collapse" role="navigation">
+            <ul class="nav navbar-nav">
+              <% if(role=="admin"){%>
+                <% for(i=0;i<nav.length-2;i++){ %>
+                  <li>
+                    <a href="<%=nav[i].link %>"><%=nav[i].name%></a>
+                  </li>
+                <%}%>
+                <li>
+                  <button id="logoutbtn" style="text-align: right;"><a href="/logout">logout</a> </button> 
+                </li>
+                
+              <%}else{%>
+                <% for(i=4;i<nav.length;i++){ %>
+                  <li>
+                    <a href="<%=nav[i].link %>"><%=nav[i].name%></a>
+                  </li>
+                <%}%>
+              <%}%>
+            </ul>
+         
+          </nav>
+        </div>
+      </header>
+      
+    <h1 id="head"> LogIn</h1>
+    
+        <div class="container1">
+            <div class="box1">
+                <form action="/login/success"  method="POST" >
+                    <!--<label class="loginlabels" for="email" >Email </label> <br>
+                    <input class="logininputs" type="email" id="email"  placeholder="Email">
+                    <br>
+                    <label   for="error" style="margin-left: 10%;" id="error1" ></label>
+                    <br> -->
+                    <label class="loginlabels" for="email" >Email</label> <br>
+                    <input class="logininputs" type="email" name="loginemail" id="email"  placeholder="Enter your email">
+                    <br>
+                    <label   for="error" style="margin-left: 10%;" id="error1" ></label>
+                    <br> 
+
+                    <label class="loginlabels"  for="password" >Password </label><br>
+                    <input class="logininputs" type="password" name="password" id="psd"  placeholder="Enter your Password">
+                    <br>
+                    <label for="error" style="margin-left: 10%;"  id="error2"></label>
+                    <br>
+                    <button type="submit" onclick="return validate()" id="btn">Login</button>
+                </form>
+            </div>
+        </div>
+      <script>
+          let email=document.getElementById("email");
+          let error1=document.getElementById("error1");
+          let error2=document.getElementById("error2");
+          let psd=document.getElementById("psd");
+          function validate(){
+              let regexp=/^([A-Za-z0-9\.\-])+\@([A-Za-z0-9\-])+\.([a-z]{2,3})(.[a-z]{2,3})?$/
+                      
+                      if(email.value==""){
+                          error1.innerHTML="<h6>Email cannot be empty</h6>";
+                          email.style.border="2px solid red";
+                          return false; 
+                      }
+                      if(email.value.trim()==""){
+                        error1.innerHTML="Email cannot be empty";
+                        email.style.border="2px solid red";
+                        return false;
+                      }
+                      if(regexp.test(email.value)){
+                          error1.innerHTML="";   
+                          email.style.border="3px solid green"; 
+                          
+                      }
+                      else{
+                          error1.innerHTML="Invalid Email format";
+                          email.style.border="2px solid red";
+                          return false;
+                      }
+                      if(psd.value==""){
+                          error2.innerHTML="<h6>Password cannot be empty</h6>";
+                          psd.style.border="2px solid red";
+                          
+                      }  
+                      if(psd.value.trim()==""){
+                        error2.innerHTML="Password cannot be empty";
+                        psd.style.border="2px solid red";
+                        return false;
+                      }  
+                      if((psd.value)<8){
+                          error2.innerHTML="Invalid password";
+                          psd.style.border="2px solid red";
+                          return false;
+                      }
+                      else{
+                          error2.innerHTML="";
+                          psd.style.border="3px solid green";
+                          return true;
+                      }
+                      
+                      }
+         
+  
+        </script>
+        <script src="/public/js/style.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>        
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar navbar-bright navbar-fixed-top" role="banner">
+        <div class="container">
+          <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">Home</a>
+          </div>
+          <nav class="collapse navbar-collapse" role="navigation">
+            <ul class="nav navbar-nav">
+              <% if(role ==='admin'){%>
+                <% for(i=0;i<nav.length-2;i++){ %>
+                  <li>
+                    <a href="<%=nav[i].link %>"><%=nav[i].name%></a>
+                  </li>
+                  <%}%>  
+                  <li>
+                    <button id="logoutbtn" style="text-align: right;"><a href="/logout">logout</a> </button> 
+                  </li>
+                
+              <%}else{%>
+                <% for(i=4;i<nav.length;i++){ %>
+                  <li>
+                    <a href="<%=nav[i].link %>"><%=nav[i].name%></a>
+                  </li>
+                <%}%>
+              <%}%>
+            </ul>
+            
+          </nav>
+        </div>
+      </header>
+      
+    <h1 id="head"> Update Author Details</h1>
+    
+        <div class="container1">
+            <div class="box1">
+                <form action="/authors/:id/update/updateauthor" method="POST" enctype="multipart/form-data" >
+                  <input type="hidden" value="<%=author._id%>" >
+                    <label class="labels" for="author name" id="label1">Name of Author </label> 
+                    <input class="inputs" id="name1" name="authorname" type="text" value="<%=author.authorname%>"  placeholder="Name"> <br>
+                    <label id="error1" for="error"></label>
+                    <br>
+                    <label class="labels" for="period">period</label>
+                    <input class="inputs" type="text" name="period" id="period"  value="<%=author.period%>"placeholder="born-died"> <br>
+                    <label id="error2" for="error"></label>
+                    <br>
+                    <label class="labels" for="notable Works">Notable Works</label>
+                    <input class="inputs" type="text"  name="works"id="works"value="<%=author.works%>" placeholder="Notable Works"> <br>
+                    <label id="error3" for="error"></label>
+                    <br>
+                    <!--<label class="labels" for="awards">Awards</label>
+                    <input class="inputs" type="text" name="awards"id="awards" value="<%=author.awards%>"placeholder="Awards"> <br>
+                    <label id="error4" for="error"></label>
+                    <br>
+                    <label class="labels" for="about">About</label><br>
+                    <textarea class="inputs"  name="about"value="<%=author.about%>"id="about"></textarea> <br>
+                    <label id="error5" for="error"></label>
+                    <br>-->
+                    <label class="labels" for="image">Author Image </label>
+                    <input class="inputs" type="file" name="file" id="cover"accept="image/*"> <br>
+                    <label id="error6" for="error"></label>
+                    <br>
+                    <button type="submit" onclick="return add()" id="btn">Update</button>
+                </form>
+            </div>
+        </div>
+        <script>
+          let name=document.getElementById("name1");
+          let period=document.getElementById("period");
+          let works=document.getElementById("works");
+          let awards=document.getElementById("awards");
+          let about=document.getElementById("about");
+          let cover=document.getElementById("cover");
+          let error1=document.getElementById("error1");
+          let error2=document.getElementById("error2");
+          let error3=document.getElementById("error3");
+          let error4=document.getElementById("error4");
+          let error5=document.getElementById("error5");
+          let error6=document.getElementById("error6");
+          function add(){
+            if(name.value==""){
+              error1.innerHTML="Username cannot be empty";
+             
+                if(name.value.trim()==""){
+                error1.innerHTML="Username cannot be empty";
+                return false;
+                }
+            }
+            
+            if(period.value==""){
+              error1.innerHTML="";
+              error2.innerHTML="Field cannot be empty";
+              
+                if(period.value.trim()==""){
+                error2.innerHTML="Field cannot be empty";
+                return false;
+                }
+            }
+           
+            if(works.value==""){
+              error2.innerHTML="";
+              error3.innerHTML="Field cannot be empty";
+              
+              if(works.value.trim()==""){
+              error3.innerHTML="Field cannot be empty";
+              return false;
+            }
+            }
+            if(awards.value==""){
+              error3.innerHTML="";
+              error4.innerHTML="Field cannot be empty";
+              if(awards.value.trim()==""){
+              error4.innerHTML="Field cannot be empty";
+              return false;
+            }
+            }
+            if(about.value==""){
+              error4.innerHTML="";
+              error5.innerText="Field cannot be empty";
+              if(about.value.trim()==""){
+              error5.innerHTML="Field cannot be empty";
+              return false;
+            }
+            }
+            if(cover.files.length === 0){
+              error5.innerHTML="";
+              error6.innerHTML="Attatchment required";
+              return false;
+            }
+            else{
+              error6.innerHTML="";
+              alert("Author Added");
+              return true;
+            }
+            
+          /*  if(name.value==""){
+              error1.innerHTML="Username cannot be empty";
+              return false;
+            }
+            else if(name.value.trim()==""){
+              error1.innerHTML="Username cannot be empty";
+              return false;
+            }
+            else{
+              error1.innerHTML="";
+            }
+            if(period.value==""){
+              error2.innerHTML="Field cannot be empty";
+              return false;
+            }
+            else if(period.value.trim()==""){
+              error2.innerHTML="Field cannot be empty";
+              return false;
+            }
+            else{
+              error2.innerHTML="";
+            }
+            if(works.value==""){
+              error3.innerText="Field cannot be empty";
+              return false;
+            }
+            else if(works.value.trim()==""){
+              error3.innerHTML="Field cannot be empty";
+              return false;
+            }
+            else{
+              error3.innerHTML="";
+              return false;
+            }
+            if(awards.value==""){
+              error4.innerHTML="Field cannot be empty";
+              return false;
+            }
+            else if(awards.value.trim()==""){
+              error4.innerHTML="Field cannot be empty";
+              return false;
+            }
+            else{
+              error4.innerHTML="";
+              return false;
+            }
+            if(about.value==""){
+              error5.innerText="Field cannot be empty";
+              return false;
+            }
+            else if(about.value.trim()==""){
+              error5.innerHTML="Field cannot be empty";
+              return false;
+            }
+            else{
+              error5.innerHTML="";
+              return false;
+            }  
+            if(cover.files.length === 0){
+              error6.innerHTML="Attatchment required";
+              return false;
+            }
+            else{
+              error6.innerHTML="";
+              alert("Author Added");
+              return true;
+            }*/
+          } 
+        </script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>        
+</body>
+</html>
