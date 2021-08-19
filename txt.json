@@ -1,0 +1,12 @@
+[{
+    "regno":"3014",
+    "name":"liya",
+    "course":{
+        "coursename":"btech",
+        "duration":"4yrs"
+    },
+    "address":{
+        "city":"Thrissur",
+        "state":"kerala"
+    }
+}]
